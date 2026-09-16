@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой первый спиннер</title>
+    <style>
+        /* Это CSS — он отвечает за внешний вид */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        /* Игровое поле, где всё находится */
+        .game-zone {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 200px; /* Место для кнопки внизу */
+        }
+
+        /* Стили для вариантов (текста) */
+        .option {
+            position: absolute;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        /* Расставляем варианты по краям (сверху, снизу, слева, справа) */
+        .top    { top: 0; left: 50%; transform: translateX(-50%); }
+        .right  { top: 50%; right: 0; transform: translateY(-50%); }
+        .bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .left   { top: 50%; left: 0; transform: translateY(-50%); }
+
+        /* Наш спиннер (стрелка) */
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 100px;
+            background-color: #ff4757; /* Красный цвет */
+            border-radius: 10px;
+            /* Сдвигаем стрелку, чтобы она крутилась точно по центру */
+            margin-top: -50px;
+            margin-left: -10px;
+            /* Эффект плавного вращения */
+            transition: transform 3s ease-out; 
+        }
+
+        /* Кнопка запуска */
+        .btn {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #2ed573;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #26af5f; }
+    </style>
+</head>
+<body>
+
+    <!-- Это HTML — структура страницы -->
+    <div class="game-zone">
+        <!-- Текст вариантов вы можете менять прямо тут! -->
+        <div class="option top">Вариант 1</div>
+        <div class="option right">Вариант 2</div>
+        <div class="option bottom">Вариант 3</div>
+        <div class="option left">Вариант 4</div>
+
+        <!-- Сам спиннер, который будет крутиться -->
+        <div class="spinner" id="arrow"></div>
+    </div>
+
+    <button class="btn" onclick="spin()">Крутить!</button>
+
+    <!-- Это JavaScript — оживляет страницу -->
+    <script>
+        // Создаем переменную для сохранения текущего угла
+        let currentRotation = 0;
+
+        function spin() {
+            // Генерируем случайное число градусов от 1000 до 3000, 
+            // чтобы стрелка сделала несколько видимых оборотов
+            const randomDegrees = Math.floor(Math.random() * 2000) + 1000;
+            
+            // Прибавляем к текущему углу, чтобы при следующем клике она крутилась дальше
+            currentRotation += randomDegrees;
+
+            // Находим стрелку в коде и приказываем ей повернуться
+            document.getElementById('arrow').style.transform = `rotate(${currentRotation}deg)`;
+        }
+    </script>
+
+</body>
+</html>
